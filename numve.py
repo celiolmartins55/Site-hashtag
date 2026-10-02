@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from streamlit_gsheets import GSheetsConnection
+import os
 
 # Passo 1: Criar a tela do sistema e conectar ao Google Sheets
 st.write("# Sistema de Vendas")
@@ -9,7 +10,7 @@ st.write("# Sistema de Vendas")
 # Estabelece a conexão com a planilha do Google
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-url_planilha = st.secrets["URL_TABELA"]
+url_planilha = os.environ.get("URL_TABELA")
 # Lê os dados da planilha
 tabela = conn.read(spreadsheet=url_planilha, worksheet="Pagina1", ttl=0)
 
