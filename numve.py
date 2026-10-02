@@ -10,7 +10,7 @@ st.write("# Sistema de Vendas")
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Lê os dados da planilha (aqui assumimos que a aba se chama "Página1")
-tabela = conn.read(worksheet="Página1")
+tabela = conn.read(spreadsheet="https://docs.google.com/spreadsheets/d/1owZdgbiQvwt3VRwZXS_R5PPdtRbT1EdOnSIJgQQe3lQ/edit?gid=1910883999#gid=1910883999", worksheet="Página1")
 
 # Remove linhas 100% vazias que o Google Sheets pode trazer acidentalmente
 tabela = tabela.dropna(how="all")
