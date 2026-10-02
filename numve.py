@@ -9,8 +9,9 @@ st.write("# Sistema de Vendas")
 # Estabelece a conexão com a planilha do Google
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-# Lê os dados da planilha (aqui assumimos que a aba se chama "Página1")
-tabela = conn.read(spreadsheet="https://docs.google.com/spreadsheets/d/1owZdgbiQvwt3VRwZXS_R5PPdtRbT1EdOnSIJgQQe3lQ/edit?gid=1910883999#gid=1910883999", worksheet="Página1")
+# Lê os dados da planilha
+url_planilha = "https://docs.google.com/spreadsheets/d/1owZdgbiQvwt3VRwZXS_R5PPdtRbT1EdOnSIJgQQe3lQ/edit?gid=1910883999#gid=1910883999"
+tabela = conn.read(spreadsheet=url_planilha, worksheet="Página1")
 
 # Remove linhas 100% vazias que o Google Sheets pode trazer acidentalmente
 tabela = tabela.dropna(how="all")
@@ -26,7 +27,7 @@ botao = st.sidebar.button("Cadastrar venda")
 
 # Passo 3: Salvar a venda na base de dados (na Nuvem)
 if botao:
-    # Cria um DataFrame apenas com a nova venda (usando as colunas em letras minúsculas para bater com os gráficos)
+    # Cria um DataFrame apenas com a nova venda
     nova_venda = pd.DataFrame([{
         "data": str(data), 
         "vendedor": vendedor, 
@@ -38,8 +39,8 @@ if botao:
     # Junta a tabela antiga com a nova venda
     tabela_atualizada = pd.concat([tabela, nova_venda], ignore_index=True)
     
-    # Envia os dados atualizados para sobrescrever a planilha do Google
-    conn.update(worksheet="Página1", data=tabela_atualizada)
+    # Envia os dados atualizados para sobrescrever a planilha do Google (AGORA COM O LINK)
+    conn.update(spreadsheet=url_planilha, worksheet="Página1", data=tabela_atualizada)
     st.success("Venda cadastrada na nuvem com sucesso!")
     
     # Atualiza a variável 'tabela' localmente para que os gráficos atualizem na mesma hora
