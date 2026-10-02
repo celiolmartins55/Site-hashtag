@@ -10,7 +10,6 @@ st.write("# Sistema de Vendas")
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Lê os dados da planilha
-url_planilha = "https://docs.google.com/spreadsheets/d/1owZdgbiQvwt3VRwZXS_R5PPdtRbT1EdOnSIJgQQe3lQ/edit?gid=1910883999#gid=1910883999"
 tabela = conn.read(spreadsheet=url_planilha, worksheet="Pagina1", ttl=0)
 
 # Remove linhas 100% vazias que o Google Sheets pode trazer acidentalmente
