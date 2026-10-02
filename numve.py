@@ -11,7 +11,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Lê os dados da planilha
 url_planilha = "https://docs.google.com/spreadsheets/d/1owZdgbiQvwt3VRwZXS_R5PPdtRbT1EdOnSIJgQQe3lQ/edit?gid=1910883999#gid=1910883999"
-tabela = conn.read(spreadsheet=url_planilha, worksheet="Página1")
+tabela = conn.read(spreadsheet=url_planilha, worksheet="Pagina1")
 
 # Remove linhas 100% vazias que o Google Sheets pode trazer acidentalmente
 tabela = tabela.dropna(how="all")
@@ -40,7 +40,7 @@ if botao:
     tabela_atualizada = pd.concat([tabela, nova_venda], ignore_index=True)
     
     # Envia os dados atualizados para sobrescrever a planilha do Google (AGORA COM O LINK)
-    conn.update(spreadsheet=url_planilha, worksheet="Página1", data=tabela_atualizada)
+    conn.update(spreadsheet=url_planilha, worksheet="Pagina1", data=tabela_atualizada)
     st.success("Venda cadastrada na nuvem com sucesso!")
     
     # Atualiza a variável 'tabela' localmente para que os gráficos atualizem na mesma hora
