@@ -9,6 +9,7 @@ st.write("# Sistema de Vendas")
 # Estabelece a conexão com a planilha do Google
 conn = st.connection("gsheets", type=GSheetsConnection)
 
+url_planilha = ${{URL_TABELA}}
 # Lê os dados da planilha
 tabela = conn.read(spreadsheet=url_planilha, worksheet="Pagina1", ttl=0)
 
